@@ -1,1 +1,1 @@
-asdas
+Pointsize = sempre 20.
