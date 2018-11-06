@@ -53,7 +53,7 @@ lbls
 #
 # Obs: lembrar de criar um diretório, abaixo do diretório de trabalho atual, com o nome "gráficos"!!
 #
-png(filename="gráficos/aed_survey_trabalho_tidy.png", width = 800, height = 500, pointsize = 16)
+png(filename="gráficos/trabalho_pie.png", width = 800, height = 600, pointsize = 20)
 #
 # Definindo a cor de fundo do gráfico a ser exibido: azul clara
 par(bg = "light blue")
@@ -68,7 +68,7 @@ dev.off()
 #
 # Outra forma de visualização da variável "prof", utilizando gráfico de barras
 # 
-png(filename="gráficos/aed_survey_barra_trabalho_tidy.png", width = 800, height = 500, pointsize = 16)
+png(filename="gráficos/trabalho_barplot.png", width = 800, height = 600, pointsize = 20)
 # Gráfico do tipo "barplot"
 lbls <- c("Desempregado", "Jornada Parcial", "Jornada Integral", "Estagiário", "Estagiário", "Frelancer", "Afastado", "Aposentado", "Bolsista Capes")
 # Definindo a cor de fundo branca (default)
