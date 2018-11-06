@@ -74,7 +74,6 @@ lbls <- c("Desempregado", "Jornada Parcial", "Jornada Integral", "Estagiário", 
 # Definindo a cor de fundo branca (default)
 par(bg = "white")
 # Geração do gráfico tipo barra (barplot)
-
 my_bar=barplot(trab, border=F, names.arg = NA, las=2,
                col = c(rainbow(5)),
                ylab = "Quantidade",
