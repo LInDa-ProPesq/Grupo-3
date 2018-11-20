@@ -5,3 +5,4 @@
 
 # Excel temporary
 ~$*.xls*
+.Rproj.user
