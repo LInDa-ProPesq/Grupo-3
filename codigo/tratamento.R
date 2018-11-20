@@ -1,4 +1,4 @@
-install.packages("readxl")
+xinstall.packages("readxl")
 library(readxl)
 library(graphics)
 library(stringr)
@@ -53,3 +53,39 @@ png(filename="gráficos/Seção3_barplot.png", width = 800, height = 600, points
 par(mar = c(7,4,4,4))
 barplot(d,col=rainbow(11),las=2,ylim = c(0,60),main="Principais motivos de uso")
 dev.off()
+
+
+#fazendo grafico 4 - uso academico
+dados <- read_excel("dados/umses_graduacao_2018_vtidy.xlsx")
+dados
+dados$usoacademico
+d <- as.data.frame(dados)
+dado <- d$usoacademico  
+dado <- factor(d$usoacademico)
+dado2 <- table(dado)
+names(dado2) <- c("Não","Sim","Com restrições","Não sei")
+teste  <- barplot(dado2,cex.names=1.0,col=rainbow(11),
+                  las=2,ylab="Quantidade",ylim = c(0,45),
+                  main="Mídia social pode ser usada pelos professores?")
+text(teste, dado2+4,paste("",dado2,sep="")) #add o numero em cima
+
+#fazendo grafico 4 - profchegal
+dado <- d$profchegaal
+dado <- factor(dado)
+dado2 <- table(dado)
+names(dado2) <- c("Não","Sim","Não sei")
+grafico <- barplot(dado2,cex.names = 1.5, col=rainbow(7),
+                   las=2,ylab="Quantidade",
+                   ylim=c(0,30),main="Melhor forma dos professores se aproximarem?")
+text(grafico,dado2+3,paste("",dado2,sep=""))
+
+#fazendo grafico 4 - mlehorresul
+dado <- d$melhoraresul
+dado <- factor(dado)
+dado2 <- table(dado)
+names(dado2) <- c("Não","Sim","Não sei")
+grafico <- barplot(dado2,cex.names = 1.5, col=heat.colors(3),
+                   las=2,ylab="Quantidade",
+                   ylim=c(0,45),main="Melhores resultados com a integração das redes socias")
+text(grafico,dado2+3,paste("",dado2,sep="")) #dado2+3 é o lugar que fica o "n"
+
