@@ -126,7 +126,7 @@ barplot(cex.name=0.8,tudo.tabela,col=rainbow(7),ylab = "Quantidade",
 legend(7,23, legend=rownames(tudo.tabela),lwd=10,
        title="Situação trabalhista",
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
-##falta arrumar a legenda e colocar png
+##falta colocar png
 
 ##testando matrix
 pao <- matrix(ncol=4,byrow=TRUE)
