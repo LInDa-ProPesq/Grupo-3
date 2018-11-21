@@ -118,13 +118,14 @@ table(tudo$trabalha,tudo$tempogasto)
 tudo.tabela <- table(tudo$trabalha,tudo$tempogasto)
 rownames(tudo.tabela) <- c("Desempregado","Jornada parcial","Jornada integral","Estagiário","Bolsista Capes")
 colnames(tudo.tabela) <- c("5~10","10~30","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
-par(mar=c(5,5,5,8))
 
+par(mar=c(3, 4, 5, 5) + 0.1)
 barplot(cex.name=0.8,tudo.tabela,col=rainbow(7),ylab = "Quantidade",
         ylim = c(0,20))
-legend("topright", legend=rownames(tudo.tabela),lwd=10,
+
+legend(7,23, legend=rownames(tudo.tabela),lwd=10,
        title="Situação trabalhista",
-       col=rainbow(7), lty=1:2, cex=0.8)        
+       col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
 ##falta arrumar a legenda e colocar png
 
 ##testando matrix
