@@ -64,28 +64,79 @@ dado <- d$usoacademico
 dado <- factor(d$usoacademico)
 dado2 <- table(dado)
 names(dado2) <- c("Não","Sim","Com restrições","Não sei")
+png(filename="gráficos/Seção4_uso_academico.png", width = 800, height = 600, pointsize = 20)
+
+par(mar = c(7,4,4,4))
+
 teste  <- barplot(dado2,cex.names=1.0,col=rainbow(11),
                   las=2,ylab="Quantidade",ylim = c(0,45),
                   main="Mídia social pode ser usada pelos professores?")
 text(teste, dado2+4,paste("",dado2,sep="")) #add o numero em cima
-
+dev.off()
 #fazendo grafico 4 - profchegal
 dado <- d$profchegaal
 dado <- factor(dado)
 dado2 <- table(dado)
 names(dado2) <- c("Não","Sim","Não sei")
+png(filename="gráficos/Seção4_prof_chegal.png", width = 800, height = 600, pointsize = 20)
+
+par(mar = c(7,4,4,4))
+
 grafico <- barplot(dado2,cex.names = 1.5, col=rainbow(7),
                    las=2,ylab="Quantidade",
                    ylim=c(0,30),main="Melhor forma dos professores se aproximarem?")
 text(grafico,dado2+3,paste("",dado2,sep=""))
+dev.off()
 
 #fazendo grafico 4 - mlehorresul
 dado <- d$melhoraresul
 dado <- factor(dado)
 dado2 <- table(dado)
 names(dado2) <- c("Não","Sim","Não sei")
+png(filename="gráficos/Seção4_melhorresul.png", width = 800, height = 600, pointsize = 20)
+
+par(mar = c(7,4,4,4))
+
 grafico <- barplot(dado2,cex.names = 1.5, col=heat.colors(3),
                    las=2,ylab="Quantidade",
                    ylim=c(0,45),main="Melhores resultados com a integração das redes socias")
 text(grafico,dado2+3,paste("",dado2,sep="")) #dado2+3 é o lugar que fica o "n"
 
+dev.off()
+
+tudo <- d
+names(tudo)
+tudo.tab <- table(tudo$genero,tudo$bulling)
+tudo.tab
+row.names(tudo.tab) <- c("Masculino","Feminino")
+colnames(tudo.tab) <- c("Não","Sim")
+ ## tentando juntar colunas 
+d
+tudo <- d
+names(tudo)
+table(tudo$trabalha,tudo$tempogasto)
+tudo.tabela <- table(tudo$trabalha,tudo$tempogasto)
+rownames(tudo.tabela) <- c("Desempregado","Jornada parcial","Jornada integral","Estagiário","Bolsista Capes")
+colnames(tudo.tabela) <- c("5~10","10~30","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
+par(mar=c(5,5,5,8))
+
+barplot(cex.name=0.8,tudo.tabela,col=rainbow(7),ylab = "Quantidade",
+        ylim = c(0,20))
+legend("topright", legend=rownames(tudo.tabela),lwd=10,
+       title="Situação trabalhista",
+       col=rainbow(7), lty=1:2, cex=0.8)        
+##falta arrumar a legenda e colocar png
+
+##testando matrix
+pao <- matrix(ncol=4,byrow=TRUE)
+pao
+rownames(pao)
+colnames(pao)
+colnames(pao) <- c("sim","nao","talvez","sei la")
+rownames(pao) <- c("face","insta","lul","paozin")
+row.names(pao)
+pao
+pao <- as.table(pao)
+pao
+pao <- rbind(pao,"aaa")
+pao
