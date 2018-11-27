@@ -3,7 +3,7 @@ if (!require(readxl)) install.packages('readxl')
 library(readxl)
 
 #joga a planilha em "dados"
-dados <- read_excel("dados/umses_alunos_2018.xlsx", sheet="dados")
+dados <- read_excel("dados/umses_graduacao_2018_vtidy.xlsx", sheet="dados")
 
 #Inicia a geração da imagem
 png(filename="gráficos/Secao6_barplot.png", width = 800, height = 600, pointsize = 20)
@@ -42,3 +42,4 @@ legend(7.5, 50, xpd = TRUE, legend = rownames(a), lwd = 10, col = rainbow(5),
        cex = 0.7)
 #encerra o salvamento da imagem
 dev.off()
+

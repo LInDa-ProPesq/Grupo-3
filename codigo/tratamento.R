@@ -2,7 +2,7 @@ xinstall.packages("readxl")
 library(readxl)
 library(graphics)
 library(stringr)
-dados <- read_excel("dados/umses_alunos_2018.xlsx")
+dados <- read_excel("dados/umses_graduacao_2018_vtidy.xlsx")
 
 #Trata os dados, transformando números em strings (1 = "Indefinido", 
 #2 = "Masculino", etc).
@@ -25,7 +25,7 @@ pie(table(dados$genero), col = rainbow(2))
 
 #grafico da faixa etaria
 #pegando dados
-dados <- read_excel("dados/umses_alunos_2018.xlsx") 
+dados <- read_excel("dados/umses_graduacao_2018_vtidy.xlsx") 
 dados2 <- read_excel("dados/dicionario_de_dados.xlsx")
 dados2$X__4[5]
 dados <- as.data.frame(dados) #deixando como data frame
@@ -42,7 +42,7 @@ barplot(dado,names.arg = nomes,ylim=c(0,40),xlab = "Idade",ylab = "Frequência",
 dev.off()
 
 #fazendo grafico principais motivos
-dados <- read_excel("dados/umses_alunos_2018.xlsx")
+dados <- read_excel("dados/umses_graduacao_2018_vtidy.xlsx")
 dados <- as.data.frame(dados)
 
 d<- c(sum(dados$contato),sum(dados$atualizado),sum(dados$preencher),sum(dados$encontrar),sum(dados$compopiniao),sum(dados$compfoto),sum(dados$amigosja),sum(dados$profnetwork),sum(dados$novaamizade),sum(dados$compdetalhe))
@@ -86,7 +86,7 @@ grafico <- barplot(dado2,cex.names = 1.5, col=rainbow(7),
                    las=2,ylab="Quantidade",
                    ylim=c(0,30),main="Melhor forma dos professores se aproximarem?")
 text(grafico,dado2+3,paste("",dado2,sep=""))
-dev.off()
+  dev.off()
 
 #fazendo grafico 4 - mlehorresul
 dado <- d$melhoraresul
@@ -118,6 +118,7 @@ table(tudo$trabalha,tudo$tempogasto)
 tudo.tabela <- table(tudo$trabalha,tudo$tempogasto)
 rownames(tudo.tabela) <- c("Desempregado","Jornada parcial","Jornada integral","Estagiário","Bolsista Capes")
 colnames(tudo.tabela) <- c("5~10m","10~30m","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
+png(filename="gráficos/tempo gasto x situação trabalhista.png", width = 800, height = 600, pointsize = 20)
 
 par(mar=c(3, 4, 5, 5) + 0.1)
 barplot(cex.name=0.8,tudo.tabela,col=rainbow(7),ylab = "Quantidade",
@@ -127,6 +128,7 @@ legend(7,23, legend=rownames(tudo.tabela),lwd=10,
        title="Situação trabalhista",
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
 ##falta colocar png
+dev.off()
 
 d
 tudo <- d
@@ -136,6 +138,7 @@ tudo.teste <- table(tudo$melhoraresul,tudo$distracao)
 rownames(tudo.teste) <- c("Não","Sim","Não sei")
 tudo.teste
 colnames(tudo.teste) <- c("Não distrai","Distrai")
+png(filename="gráficos/distraçãoXmelhoresresultados.png", width = 800, height = 600, pointsize = 20)
 
 par(mar=c(3, 4, 5, 5) + 0.1)
 barplot(cex.name=0.8,tudo.teste,col=rainbow(7),ylab = "Quantidade de pessoas",
@@ -145,41 +148,74 @@ legend(2,80, legend=rownames(tudo.teste),lwd=10,
        title="traz melhores resultados ",
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
 
-
+dev.off()
 
 x <- c(tudo.teste[2,1],tudo.teste[2,2])
 x
-help(pie)
-pie(x,main="Distração em sala de aula",labels = c("Não Distrai","Distrai"),col = rainbow(7))
+#help(pie)
 
-grap <- barplot(cex.name=0.8,x,col=rainbow(7),ylab = "pessoas que acreditam no melhor resultado",
-        ylim = c(0,50),main = "Distração em sala de aula")
-s <- round(x/sum(x)*100)
-lbls <- c("Não Distrai","Distrai")
-lbls <- paste(lbls,s)
-lbls <- paste(lbls,"%",sep="")
-pie(x,main="Distração em sala de aula",labels = lbls,col = rainbow(7))
+#lbls <- c("Não Distrai","Distrai")
+#lbls <- paste(lbls,s)
+#lbls <- paste(lbls,"%",sep="")
+#pie(x,main="Distração em sala de aula",labels = lbls,col = rainbow(7))
 
-legend(2,55, legend=c("Não distrai","Distrai"),lwd=10,
+#pie(x,main="Distração em sala de aula",labels = c("Não Distrai","Distrai"),col = rainbow(7))
+
+##grafico de distração por quem acredita em melhores resultados
+s <- round(x/sum(x)*100) #deixando em %
+s
+png(filename="gráficos/distração x melhoresresultados.png", width = 800, height = 600, pointsize = 20)
+
+grap <- barplot(cex.name=0.8,s,col=rainbow(7),ylab = "pessoas que acreditam no melhor resultado",
+                ylim = c(0,100),main = "Distração em sala de aula")
+
+legend(2.2,120, legend=c("Não distrai","Distrai"),lwd=10,
        title="Distração",
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
-text(grap,x+3,paste("",x,sep="")) #dado2+3 é o lugar que fica o "n"
+text(grap,s+5,paste(s,"%",sep="")) #dado2+3 é o lugar que fica o "n"
+dev.off()
 
+##grafico melhor forma de aproximar com prejudica interação
 aa <- table(tudo$prejintera,tudo$profchegaal)
-aa
+
+aa[2,1]
 rownames(aa) <- c("Não Prejudica","prejudica")
-colnames(aa)<- c("Não","Sim","Não sei")
+colnames(aa)<- c("Afasta","Aproxima","Não sei")
 aa
-S##testando matrix
-pao <- matrix(ncol=4,byrow=TRUE)
-pao
-rownames(pao)
-colnames(pao)
-colnames(pao) <- c("sim","nao","talvez","sei la")
-rownames(pao) <- c("face","insta","lul","paozin")
-row.names(pao)
-pao
-pao <- as.table(pao)
-pao
-pao <- rbind(pao,"aaa")
-pao
+png(filename="gráficos/melhorformaaproximar X prejudica interação.png", width = 800, height = 600, pointsize = 20)
+
+barplot(aa,col = rainbow(2),
+        main="Interpolação de dados:\nAproxima X Prejudica a interação\nEntre os professores e alunos")
+legend("topright", legend=rownames(aa),lwd=10,col = rainbow(2)
+       , lty=1:2, cex=0.8,xpd = TRUE)
+dev.off()
+
+#grafico de quem acha que aproxima com prejudica/n prejudica interação
+b<- c(aa[1,2],aa[2,2])
+b <- round(b/sum(b)*100)
+names(b) <- c("Não prejudica","Prejudica")
+png(filename="gráficos/aproxima x prejudica.png", width = 800, height = 600, pointsize = 20)
+
+aproxima <- barplot(b, ylim = c(0,100),col=rainbow(2),main="Opinião das pessoas que apoiam ")
+text(aproxima,b+5,paste(b,"%",sep=""))
+legend("topright", legend=c("Não prejudica","Prejudica"),lwd=10,col = rainbow(2)
+       , lty=1:2, cex=0.8,xpd = TRUE)
+dev.off()
+#juntando preencher tempo livre com tempo gasto
+tabela <- table(tudo$preencher,tudo$tempogasto)
+tabela
+rownames(tabela) <- c("Não","Sim")
+colnames(tabela) <- c("5~10m","10~30m","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
+tabela
+tudo$compdetalhe
+tudo$trocainfo
+tudo$usoindev
+tudo$distracao
+tudo$prejintera
+tudo$profal
+tudo$trabalha
+summary(d)
+tab <- table(tudo$trabalha,tudo$preencher)
+tab
+tudo$facebook
+table(tudo$tempogasto,tudo$facebook)

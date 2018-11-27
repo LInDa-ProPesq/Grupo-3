@@ -3,7 +3,7 @@ if (!require(readxl)) install.packages('readxl')
 library(readxl)
 
 #joga a planilha em "dados"
-dados <- read_excel("dados/umses_alunos_2018.xlsx", sheet="dados")
+dados <- read_excel("dados/umses_graduacao_2018_vtidy.xlsx", sheet="dados")
 
 #cria o vetor "dificuldades" com a quantidade de pessoas que responderam "sim" a cada uma
 #das perguntas da seção 5, na ordem expressa em "rotulos"
