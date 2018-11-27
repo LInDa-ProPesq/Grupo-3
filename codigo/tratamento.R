@@ -117,18 +117,56 @@ names(tudo)
 table(tudo$trabalha,tudo$tempogasto)
 tudo.tabela <- table(tudo$trabalha,tudo$tempogasto)
 rownames(tudo.tabela) <- c("Desempregado","Jornada parcial","Jornada integral","Estagiário","Bolsista Capes")
-colnames(tudo.tabela) <- c("5~10","10~30","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
+colnames(tudo.tabela) <- c("5~10m","10~30m","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
 
 par(mar=c(3, 4, 5, 5) + 0.1)
 barplot(cex.name=0.8,tudo.tabela,col=rainbow(7),ylab = "Quantidade",
-        ylim = c(0,20))
+        ylim = c(0,20),main = "Tempo gasto em redes socias por dia")
 
 legend(7,23, legend=rownames(tudo.tabela),lwd=10,
        title="Situação trabalhista",
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
 ##falta colocar png
 
-##testando matrix
+d
+tudo <- d
+names(tudo)
+table(tudo$melhoraresul,tudo$distracao)
+tudo.teste <- table(tudo$melhoraresul,tudo$distracao)
+rownames(tudo.teste) <- c("Não","Sim","Não sei")
+tudo.teste
+colnames(tudo.teste) <- c("Não distrai","Distrai")
+
+par(mar=c(3, 4, 5, 5) + 0.1)
+barplot(cex.name=0.8,tudo.teste,col=rainbow(7),ylab = "Quantidade de pessoas",
+        ylim = c(0,60),main = "Distração em sala de aula")
+
+legend(2,80, legend=rownames(tudo.teste),lwd=10,
+       title="traz melhores resultados ",
+       col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
+
+
+
+x <- c(tudo.teste[2,1],tudo.teste[2,2])
+x
+help(pie)
+pie(x,main="Distração em sala de aula",labels = c("Não Distrai","Distrai"),col = rainbow(7))
+
+grap <- barplot(cex.name=0.8,x,col=rainbow(7),ylab = "pessoas que acreditam no melhor resultado",
+        ylim = c(0,50),main = "Distração em sala de aula")
+s <- round(x/sum(x)*100)
+lbls <- c("Não Distrai","Distrai")
+lbls <- paste(lbls,s)
+lbls <- paste(lbls,"%",sep="")
+pie(x,main="Distração em sala de aula",labels = lbls,col = rainbow(7))
+
+legend(2,55, legend=c("Não distrai","Distrai"),lwd=10,
+       title="Distração",
+       col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
+text(grap,x+3,paste("",x,sep="")) #dado2+3 é o lugar que fica o "n"
+
+
+S##testando matrix
 pao <- matrix(ncol=4,byrow=TRUE)
 pao
 rownames(pao)
