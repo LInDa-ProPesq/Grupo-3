@@ -73,21 +73,21 @@ png(filename="gráficos/trabalho_barplot.png", width = 800, height = 600, points
 lbls <- c("Desempregado", "Jornada Parcial", "Jornada Integral", "Estagiário", "Estagiário", "Frelancer", "Afastado", "Aposentado", "Bolsista Capes")
 # Definindo a cor de fundo branca (default)
 par(bg = "white")
+trab
+trab <- round(trab/sum(trab)*100)
 # Geração do gráfico tipo barra (barplot)
-my_bar=barplot(trab, border=F, names.arg = NA, las=2,
+par(mar=c(7,6,4,8))
+my_bar=barplot(trab, border=F, names.arg =c("Desempregado", "Jornada Parcial", "Jornada Integral", "Estagiário", "Bolsista Capes"), las=2,
                col = c(rainbow(5)),
-               ylab = "Quantidade",
+               ylab = "Porcentagem dos questionados",
                xlab = " ",
-               ylim = c(0,30),
-               main = "Profissão dos respondentes")
+               ylim = c(0,50),
+               main = "Profissão dos questionados")
 # Adicionando o texto a ser exibido 
-text(my_bar, trab+4, paste("n = ",trab,sep=""),cex=1) 
+text(my_bar, trab+4, paste(trab,"%",sep=""),cex=1) 
 
 #Agora adicionando a legenda ao gráfico
-legend("topright", legend = c("Desempregado", "Jornada Parcial", "Jornada Integral", "Estagiário", "Bolsista Capes"),
-       col = c(rainbow(5)),
-       bty = "n", pch=20 , pt.cex = 2, cex = 0.8, 
-       horiz = FALSE, inset = c(0.05, 0.05))
+
 dev.off()
 # Não se esquecer de chamar a funcao "dev.off()" para fechar o arquivo gravado!
 #

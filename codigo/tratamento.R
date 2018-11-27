@@ -19,10 +19,20 @@ for (opcao in dados$genero) {
   }
   i<-i+1
 }
+dados
 dados$genero
+##grafico genero
 
-pie(table(dados$genero), col = rainbow(2))
+genero <- table(dados$genero)
+genero
+v <- round(genero/sum(genero)*100)
+png(filename="gráficos/genero.png", width = 800, height = 600, pointsize = 20)
 
+gen <- barplot(v,col = rainbow(2),ylim=c(0,70),xlab = "Gênero",
+               ylab = "Porcentagem de pessoas",main = "Gênero dos questionados")
+
+text(gen, v+4,paste(v,"%",sep="")) #add o numero em cima
+dev.off()
 #grafico da faixa etaria
 #pegando dados
 dados <- read_excel("dados/umses_graduacao_2018_vtidy.xlsx") 
@@ -34,11 +44,15 @@ dados2
 dado<- table(dados$idade)
 dado
 
-png(filename="gráficos/faixa_etaria_pie.png", width = 800, height = 600, pointsize = 20)
+png(filename="gráficos/faixa_etaria.png", width = 800, height = 600, pointsize = 20)
 
-par(bg = "light blue") #cor do fundo azul claro
-nomes <- c("16 e 20","21 e 25","26 e 30")
-barplot(dado,names.arg = nomes,ylim=c(0,40),xlab = "Idade",ylab = "Frequência",col = rainbow(3),main = "Faixa etária dos questionados")
+nomes <- c("16 e 20 anos","21 e 25 anos","26 e 30 anos")
+novodado <- round(dado/sum(dado)*100)
+novodado
+grafico <- barplot(novodado,names.arg = nomes,ylim=c(0,60),xlab = "Idade",
+                   ylab = "Porcentagem dos questionados",col = rainbow(3),main = "Faixa etária dos questionados")
+text(grafico, novodado+4,paste(novodado,"%",sep="")) #add o numero em cima
+
 dev.off()
 
 #fazendo grafico principais motivos
@@ -51,7 +65,11 @@ names(d) <- c("Contato","Atualizar","Tempo livre","Conteudo","Opiniões","Fotos 
 png(filename="gráficos/Seção3_barplot.png", width = 800, height = 600, pointsize = 20)
 
 par(mar = c(7,4,4,4))
-barplot(d,col=rainbow(11),las=2,ylim = c(0,60),main="Principais motivos de uso")
+grafico <- barplot(d,col=rainbow(11),las=2,
+                   ylim = c(0,70),main="Principais motivos de uso",
+                   ylab = "Quantidade de questionados")
+text(grafico,d+6,paste(d,"",sep=""))
+
 dev.off()
 
 
@@ -67,40 +85,43 @@ names(dado2) <- c("Não","Sim","Com restrições","Não sei")
 png(filename="gráficos/Seção4_uso_academico.png", width = 800, height = 600, pointsize = 20)
 
 par(mar = c(7,4,4,4))
-
+dado2
+dado2 <- round(dado2/sum(dado2)*100)
 teste  <- barplot(dado2,cex.names=1.0,col=rainbow(11),
-                  las=2,ylab="Quantidade",ylim = c(0,45),
+                  ylab="Quantidade",ylim = c(0,80),
                   main="Mídia social pode ser usada pelos professores?")
-text(teste, dado2+4,paste("",dado2,sep="")) #add o numero em cima
+text(teste, dado2+6,paste(dado2,"%",sep="")) #add o numero em cima
 dev.off()
 #fazendo grafico 4 - profchegal
 dado <- d$profchegaal
-dado <- factor(dado)
 dado2 <- table(dado)
+dado2
 names(dado2) <- c("Não","Sim","Não sei")
 png(filename="gráficos/Seção4_prof_chegal.png", width = 800, height = 600, pointsize = 20)
-
+dado2
 par(mar = c(7,4,4,4))
+dado2 <- round(dado2/sum(dado2)*100)
+
 
 grafico <- barplot(dado2,cex.names = 1.5, col=rainbow(7),
-                   las=2,ylab="Quantidade",
-                   ylim=c(0,30),main="Melhor forma dos professores se aproximarem?")
-text(grafico,dado2+3,paste("",dado2,sep=""))
-  dev.off()
+                   las=2,ylab="Porcentagem dos questionados",
+                   ylim=c(0,50),main="Melhor forma dos professores se aproximarem?")
+text(grafico,dado2+5,paste(dado2,"%",sep=""))
+dev.off()
 
 #fazendo grafico 4 - mlehorresul
 dado <- d$melhoraresul
-dado <- factor(dado)
 dado2 <- table(dado)
 names(dado2) <- c("Não","Sim","Não sei")
 png(filename="gráficos/Seção4_melhorresul.png", width = 800, height = 600, pointsize = 20)
 
 par(mar = c(7,4,4,4))
+dado2 <- round(dado2/sum(dado2)*100)
 
 grafico <- barplot(dado2,cex.names = 1.5, col=heat.colors(3),
                    las=2,ylab="Quantidade",
-                   ylim=c(0,45),main="Melhores resultados com a integração das redes socias")
-text(grafico,dado2+3,paste("",dado2,sep="")) #dado2+3 é o lugar que fica o "n"
+                   ylim=c(0,70),main="Melhores resultados com a integração das redes socias")
+text(grafico,dado2+5,paste(dado2,"%",sep=""))
 
 dev.off()
 
@@ -110,7 +131,7 @@ tudo.tab <- table(tudo$genero,tudo$bulling)
 tudo.tab
 row.names(tudo.tab) <- c("Masculino","Feminino")
 colnames(tudo.tab) <- c("Não","Sim")
- ## tentando juntar colunas 
+## tentando juntar colunas 
 d
 tudo <- d
 names(tudo)

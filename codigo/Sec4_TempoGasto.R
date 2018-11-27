@@ -85,7 +85,7 @@ nom <- c("Nenhum", "5~10 min", "10~30 min", "30~60 min", "1~2 h", "2~3 h", "3~4 
 my_bar=barplot(tempo, border=F, names.arg = nom, las=1,
                col = c(rainbow(7)),
                ylab = "Porcentagem dos Entrevistados",
-
+               
                ylim = c(0,30),
                main = "Tempo diário gasto nas mídias sociais.")
 # Adicionando o texto a ser exibido 
