@@ -165,7 +165,11 @@ legend(2,55, legend=c("Não distrai","Distrai"),lwd=10,
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
 text(grap,x+3,paste("",x,sep="")) #dado2+3 é o lugar que fica o "n"
 
-
+aa <- table(tudo$prejintera,tudo$profchegaal)
+aa
+rownames(aa) <- c("Não Prejudica","prejudica")
+colnames(aa)<- c("Não","Sim","Não sei")
+aa
 S##testando matrix
 pao <- matrix(ncol=4,byrow=TRUE)
 pao
