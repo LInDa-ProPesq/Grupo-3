@@ -5,18 +5,8 @@ library(readxl)
 #joga a planilha em "dados"
 dados <- read_excel("dados/umses_alunos_2018.xlsx", sheet="dados")
 
-rotulos <- c("Excelente", "Bom", "Indiferente", "Ruim", "Muito ruim")
-
 #Inicia a geração da imagem
-png(filename="gráficos/Secao5_barplot.png", width = 800, height = 600, pointsize = 20)
-
-#muda as margens do gráfico para que o texto não seja cortado
-par(mar = c(9,4,4,2))
-
-#"las = 2" faz o texto ficar na vertical; "cex.names" diminui o tamanho do texto; "ylim" determina
-#o mínimo e máximo do eixo y
-pie(table(dados$evioinfo), col = rainbow(7),
-        main = "Dificuldades de uso", labels = rotulos, ylim = c(0,60))
+png(filename="gráficos/Secao6_barplot.png", width = 800, height = 600, pointsize = 20)
 
 #Inicia o armazenamento dos dados que serão utilizados (da seção 6)
 a<-table(dados$grandeuso)
@@ -37,13 +27,16 @@ a<-rbind(a, c(sum(dados$quadrovirtual==1), sum(dados$quadrovirtual==2), sum(dado
               sum(dados$quadrovirtual==4), sum(dados$quadrovirtual==5)))
 
 #muda o nome das linhas para corresponder às perguntas da tabela
-rownames(a)<-c("grandeuso", "evioinfo", "facegrupo", "trocainfo", "compinfopal", "quadrovirtual")
+rownames(a)<-c("Uso crecente \npara promocao", "Envio de \ninformacoes \npara os pais",
+               "Uso de \ngrupos do \nFacebook", "Troca de \ninformacoes", "Compartilhamento \nde informacoes", "Quadro virtual")
 
 #transpõe a tabela
 a<-t(a)
 
 par(mar = c(5.1,4.1,4.1,6))
-barplot(a, col = rainbow(5), las = 1, ylab = "Quantidade")
+barplot(a, main = "Avaliacao dos recursos ",
+        col = rainbow(5), las = 1, ylab = "Quantidade",
+        cex.names = 0.7)
 
 legend(7.5, 50, xpd = TRUE, legend = rownames(a), lwd = 10, col = rainbow(5),
        cex = 0.7)
