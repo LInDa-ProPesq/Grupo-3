@@ -1,7 +1,6 @@
 xinstall.packages("readxl")
 library(readxl)
 library(graphics)
-library(stringr)
 dados <- read_excel("dados/umses_graduacao_2018_vtidy.xlsx")
 
 #Trata os dados, transformando números em strings (1 = "Indefinido", 
@@ -19,8 +18,7 @@ for (opcao in dados$genero) {
   }
   i<-i+1
 }
-dados
-dados$genero
+
 ##grafico genero
 
 genero <- table(dados$genero)
@@ -61,7 +59,7 @@ dados <- as.data.frame(dados)
 
 d<- c(sum(dados$contato),sum(dados$atualizado),sum(dados$preencher),sum(dados$encontrar),sum(dados$compopiniao),sum(dados$compfoto),sum(dados$amigosja),sum(dados$profnetwork),sum(dados$novaamizade),sum(dados$compdetalhe))
 d
-names(d) <- c("Contato","Atualizar","Tempo livre","Conteudo","Opiniões","Fotos ou vídeos","Amigos","Networking","Pessoas","Assuntos")
+names(d) <- c("Contato","Atualizar","Tempo livre","Conteúdo","Opiniões","Fotos ou vídeos","Amigos","Networking","Pessoas","Assuntos")
 png(filename="gráficos/Seção3_barplot.png", width = 800, height = 600, pointsize = 20)
 
 par(mar = c(7,4,4,4))
