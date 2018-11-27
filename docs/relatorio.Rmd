@@ -1,5 +1,4 @@
 ---
-title: "Relat�rio da pesquisa da disciplina de Ci�ncia de Dados"
 author: "Grupo3"
 date: "27 de novembro de 2018"
 output: pdf_document
@@ -9,22 +8,68 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introdu��o 
+\newpage
+\pagestyle{empty}
+\begin{center}
+{\large Universidade Estadual Paulista "Júlio de Mesquita Filho"}\\[8cm]
+{\large Trabalho final de Ciência de dados - Grupo 3}\\[5cm]
+\end{center}
 
-   Conforme o passar dos ultimos anos, a quantidade de dados aumentou de forma gigantesca. Qualquer dispositivo eletroeletronico, capaz de ter conex�o com a internet gera ou pode gerar dados. Por�m os dados gerados por si s� n�o tem uma finalidade correta, caso n�o sejam formatados de forma a se tornarem informa��o, com o qual � possivel identificar problemas ou ter uma vis�o melhorada da situa��o que gerou aqueles dados. 
-  Os dados n�o estruturados alcan�am escalas empresariais. Os dados est�o em abund�ncia em todos os lugares. De acordo com (buscar uma refer�ncia) cada pessoa gera 1.7MB de dados por segundo, colocando isso numa escala global e em um determinado tempo essa quantidade de dados se mostra dificil de lidar. 
-  Ent�o surgiu a ci�ncia de dados, que � uma �rea interdisciplinar voltada para o estudo e a an�lise  de dados estruturados ou n�o, a ci�ncia de dados visa a extra��o de conhecimento (insigths) para tomadas de decis�o, ela compreende tudo relacionado � prepara��o, limpeza e a an�lise de dados. (Slides do professor). 
-  
-  
-## A pesquisa 
+\begin{center}
+{\large Leonardo Oliveira}\\
+{\large Kawe Antônio dos Santos Marcelino}\\
+{\large Pedro Henrique Nunes Barros}\\
+{\large Rafael Nunes Caseiro}\\
+{\large Vitor de Souza Cruzeiro}\\[5cm]
+\end{center}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut augue pretium, luctus erat vitae, sollicitudin eros. Aliquam erat volutpat. Nulla facilisi. Vivamus ipsum ipsum, finibus vel venenatis non, tincidunt sit amet turpis. Aliquam aliquam purus vitae eros aliquet ullamcorper. Fusce imperdiet ut nisl tempus iaculis. Nunc vehicula, erat id vestibulum tincidunt, diam risus ullamcorper odio, quis tincidunt sapien libero sed nibh. Vivamus in velit diam. Ut nulla erat, eleifend et luctus nec, convallis id ligula. Aliquam gravida quis odio at facilisis. Suspendisse semper venenatis est, quis convallis nunc tincidunt et. Nam egestas sapien non nulla luctus iaculis. Donec vel ipsum id metus consequat aliquam. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+\begin{center}
+{\large Bauru}\\[0.1cm]
+{\large 2018}\\
+\end{center}
+
+\newpage
+
+## Introdução 
+
+  Conforme o passar dos últimos anos, a quantidade de dados aumentou de forma gigantesca. Qualquer dispositivo eletroeletrônico, capaz de ter conexão com a internet, gera ou pode gerar dados. Porém, os dados gerados, por si sós, não têm uma finalidade correta caso não sejam formatados de forma a se tornarem informação, com a qual é possivel identificar problemas ou ter uma visão melhorada da situação que gerou aqueles dados. 
+  Os dados não estruturados alcançam escalas empresariais. Os dados estão em abundância em todos os lugares. Projeta-se que, em 2020, cada pessoa gerará cerca 1.7MB de dados por segundo. Colocando isto numa escala global e em um determinado tempo, essa quantidade de dados mostra-se difícil de ser manejada.
+  Então surgiu a ciência de dados, que é uma área interdisciplinar voltada para o estudo e a análise  de dados estruturados ou não. A ciência de dados visa a extração de conhecimento (\textit{insights}) para tomadas de decisão; compreende tudo relacionado à preparação, limpeza e análise de dados (slides do professor). 
+
+###Sobre o trabalho
+  Este relatório foi realizado como parte do trabalho final da disciplina de Ciências de Dados, do segundo termo de 2018.
+Ele visa demonstrar um conjunto de técnicas exploratórias da linguagem R, aprendidas durante o curso, assim como a elaboração de grafos e documentos através do software R-Studio, e o próprio relatório, em conjunto com uma apresentação de slides, produzidos pelo software R-Markdown.
+  Ele contempla a pesquisa realizada pelos alunos da disciplina, aplicada ao corpo discente da Universidade Estadual Paulista “Julio de Mesquita Filho” - UNESP - do campus de Bauru – SP, como parte da pesquisa em progresso de autoria do professor João Pedro Albino, com o intuito de responder a pergunta: 
+\center{\textit{“Quais são as influências das mídias sociais sobre discentes da instituição de nível superior UNESP-Bauru-SP?”}}
+  
+##Análise exploratória de dados
+  Utilizando a planilha \textit{tidy} fornecida pelo professor, foram analisados todos os dados das 15 questões apresentadas nos formulários coletados. A análise foi dividida em primeira (análises isoladas das questões) e segunda grau (cruzamentos de dados entre questões para gerar informações mais complexas).
+###Análise de primeira ordem
+A partir dos dados coletados pela pesquisa foi gerado um conjunto de gráficos exploratórios de primeira ordem. Este conjunto apresenta os resultados de forma simples e direta, servindo como embasamento inicial da análise, facilitando a proposta de perguntas mais interessantes sobre o conjunto de dados.
+Ainda assim, a análise destes gráficos já aponta algumas características interessantes do corpo de pesquisa, permitindo a observação de aspectos prevalentes e possivelmente inesperados. Os gráficos gerados foram os seguintes:
+
+####Faixa etária
+
+```{r Faixa_Etaria, echo=FALSE, fig.align='center'}
+if (!require(readxl)) install.packages('readxl')
+library(readxl)
+
+dados <- read_excel("../dados/umses_alunos_2018.xlsx") 
+dados2 <- read_excel("../dados/dicionario_de_dados.xlsx")
+dados2$X__4[5]
+dados <- as.data.frame(dados) #deixando como data frame
+
+dado<- table(dados$idade)
+
+nomes <- c("16 e 20","21 e 25","26 e 30")
+barplot(dado,names.arg = nomes,ylim=c(0,40),xlab = "Idade",ylab = "Frequência",col = rainbow(3),main = "Faixa etária dos questionados")
+```
 
 ## Os dados 
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut augue pretium, luctus erat vitae, sollicitudin eros. Aliquam erat volutpat. Nulla facilisi. Vivamus ipsum ipsum, finibus vel venenatis non, tincidunt sit amet turpis. Aliquam aliquam purus vitae eros aliquet ullamcorper. Fusce imperdiet ut nisl tempus iaculis. Nunc vehicula, erat id vestibulum tincidunt, diam risus ullamcorper odio, quis tincidunt sapien libero sed nibh. Vivamus in velit diam. Ut nulla erat, eleifend et luctus nec, convallis id ligula. Aliquam gravida quis odio at facilisis. Suspendisse semper venenatis est, quis convallis nunc tincidunt et. Nam egestas sapien non nulla luctus iaculis. Donec vel ipsum id metus consequat aliquam. Interdum et malesuada fames ac ante ipsum primis in faucibus.
 
-## Os gr�ficos 
+## Os gr?ficos 
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut augue pretium, luctus erat vitae, sollicitudin eros. Aliquam erat volutpat. Nulla facilisi. Vivamus ipsum ipsum, finibus vel venenatis non, tincidunt sit amet turpis. Aliquam aliquam purus vitae eros aliquet ullamcorper. Fusce imperdiet ut nisl tempus iaculis. Nunc vehicula, erat id vestibulum tincidunt, diam risus ullamcorper odio, quis tincidunt sapien libero sed nibh. Vivamus in velit diam. Ut nulla erat, eleifend et luctus nec, convallis id ligula. Aliquam gravida quis odio at facilisis. Suspendisse semper venenatis est, quis convallis nunc tincidunt et. Nam egestas sapien non nulla luctus iaculis. Donec vel ipsum id metus consequat aliquam. Interdum et malesuada fames ac ante ipsum primis in faucibus.  
 
