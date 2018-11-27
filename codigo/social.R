@@ -1,6 +1,6 @@
 library(readxl)
 
-df <- read_xlsx("dados/umses_alunos_2018.xlsx", sheet="dados")
+df <- read_xlsx("dados/umses_graduacao_2018_vtidy.xlsx", sheet="dados")
 
 redes = c(sum(df$facebook), sum(df$twitter), sum(df$whatsapp), sum(df$linkedin), sum(df$youtube), sum(df$instagram), sum(df$snapchat), sum(df$tumblr), sum(df$pinterest))
 
