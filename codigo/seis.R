@@ -36,7 +36,7 @@ a<-t(a)
 par(mar = c(5.1,4.1,4.1,6))
 barplot(a, main = "Avaliacao dos recursos ",
         col = rainbow(5), las = 1, ylab = "Quantidade",
-        cex.names = 0.7)
+        cex.names = 0.55)
 
 legend(7.5, 50, xpd = TRUE, legend = rownames(a), lwd = 10, col = rainbow(5),
        cex = 0.7)

@@ -49,6 +49,7 @@ A partir dos dados coletados pela pesquisa foi gerado um conjunto de gráficos e
 Ainda assim, a análise destes gráficos já aponta algumas características interessantes do corpo de pesquisa, permitindo a observação de aspectos prevalentes e possivelmente inesperados. Os gráficos gerados foram os seguintes:
 
 ####Faixa etária
+O gráfico a seguir apresenta a distribuição de faixa etário dos entrevistados. Percebe-se que a maioria dos entrevistados tem entre 21 e 25 anos:
 
 ```{r Faixa_Etaria, echo=FALSE, fig.align='center'}
 if (!require(readxl)) install.packages('readxl')
@@ -64,6 +65,9 @@ dado<- table(dados$idade)
 nomes <- c("16 e 20","21 e 25","26 e 30")
 barplot(dado,names.arg = nomes,ylim=c(0,40),xlab = "Idade",ylab = "Frequência",col = rainbow(3),main = "Faixa etária dos questionados")
 ```
+
+
+###Sexo
 
 ## Os dados 
 
