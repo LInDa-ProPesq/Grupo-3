@@ -4,6 +4,7 @@ date: "27 de novembro de 2018"
 output: pdf_document
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -16,11 +17,11 @@ knitr::opts_chunk$set(echo = TRUE)
 \end{center}
 
 \begin{center}
-{\large Leonardo Oliveira}\\
-{\large Kawe Antônio dos Santos Marcelino}\\
-{\large Pedro Henrique Nunes Barros}\\
-{\large Rafael Nunes Caseiro}\\
-{\large Vitor de Souza Cruzeiro}\\[5cm]
+{\large Kawe Antônio dos Santos Marcelino, 161026371}\\
+{\large Leonardo Silva de Oliveira, 171025903}\\
+{\large Pedro Henrique Nunes Barros, 171022548}\\
+{\large Rafael Nunes Caseiro, 181024683}\\
+{\large Vitor de Souza Cruzeiro, 161025935}\\[5cm]
 \end{center}
 
 \begin{center}
@@ -58,15 +59,12 @@ O gráfico a seguir apresenta a distribuição de faixa etária dos entrevistado
 
 ```{r Faixa_Etaria, echo=FALSE, fig.align='center'}
 library(readxl)
-
 dados <- read_excel("../dados/umses_alunos_2018.xlsx") 
 dados2 <- read_excel("../dados/dicionario_de_dados.xlsx")
 dados <- as.data.frame(dados) #deixando como data frame
-
 dado<- table(dados$idade)
-
 nomes <- c("16 e 20","21 e 25","26 e 30")
-barplot(dado,names.arg = nomes,ylim=c(0,40),xlab = "Idade",ylab = "Frequência",col = rainbow(3),main = "Faixa etária dos questionados")
+barplot(dado,names.arg = nomes,ylim=c(0,40),xlab = "Idade em anos",ylab = "Quantidade de questionados",col = rainbow(3),main = "Faixa etária dos questionados")
 ```
 
 \newpage
@@ -79,7 +77,6 @@ Uma vez que a maioria dos respondentes eram do curso de Ciência da Computação
 library(readxl)
 library(graphics)
 dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
-
 i<- 1
 for (opcao in dados$genero) {
   if (opcao == 1) {
@@ -93,15 +90,10 @@ for (opcao in dados$genero) {
   }
   i<-i+1
 }
-
-
 genero <- table(dados$genero)
-
 v <- round(genero/sum(genero)*100)
-
 gen <- barplot(v,col = rainbow(2),ylim=c(0,70),xlab = "Gênero",
                ylab = "Porcentagem de pessoas",main = "Gênero dos questionados")
-
 text(gen, v+4,paste(v,"%",sep=""))
 ```
 
@@ -117,17 +109,13 @@ library(graphics)
 #fazendo grafico principais motivos
 dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
 dados <- as.data.frame(dados)
-
 d<- c(sum(dados$contato),sum(dados$atualizado),sum(dados$preencher),sum(dados$encontrar),sum(dados$compopiniao),sum(dados$compfoto),sum(dados$amigosja),sum(dados$profnetwork),sum(dados$novaamizade),sum(dados$compdetalhe))
-
 names(d) <- c("Contato","Atualizar","Tempo livre","Conteúdo","Opiniões","Fotos ou vídeos","Amigos","Networking","Pessoas","Compartilhar \nassuntos\nde trabalho")
-
 par(mar = c(7,4,4,4))
 grafico <- barplot(d,col=rainbow(11),las=2,
                    ylim = c(0,70),main="Principais motivos de uso",
                    ylab = "Quantidade de questionados")
 text(grafico,d+6,paste(d,"",sep=""))
-
 ```
 
 \newpage
@@ -145,11 +133,10 @@ dado <- d$usoacademico
 dado <- factor(d$usoacademico)
 dado2 <- table(dado)
 names(dado2) <- c("Não","Sim","Com restrições","Não sei")
-
 par(mar = c(7,4,4,4))
 dado2 <- round(dado2/sum(dado2)*100)
 teste  <- barplot(dado2,cex.names=1.0,col=rainbow(11),
-                  ylab="Quantidade",ylim = c(0,80),
+                  ylab="Porcentagem dos questionados",ylim = c(0,80),
                   main="Mídia social pode ser usada pelos professores?")
 text(teste, dado2+6,paste(dado2,"%",sep="")) #add o numero em cima
 ```
@@ -168,13 +155,10 @@ dado2 <- table(dado)
 names(dado2) <- c("Não","Sim","Não sei")
 par(mar = c(7,4,4,4))
 dado2 <- round(dado2/sum(dado2)*100)
-
-
 grafico <- barplot(dado2,cex.names = 1.5, col=rainbow(7),
                    las=2,ylab="Porcentagem dos questionados",
                    ylim=c(0,50),main="Melhor forma dos professores se aproximarem?")
 text(grafico,dado2+5,paste(dado2,"%",sep=""))
-
 ```
 
 \newpage 
@@ -189,12 +173,10 @@ d <- as.data.frame(dados)
 dado <- d$melhoraresul
 dado2 <- table(dado)
 names(dado2) <- c("Não","Sim","Não sei")
-
 par(mar = c(7,4,4,4))
 dado2 <- round(dado2/sum(dado2)*100)
-
 grafico <- barplot(dado2,cex.names = 1.5, col=heat.colors(3),
-                   las=2,ylab="Quantidade",
+                   las=2,ylab="Porcentagems dos questionados",
                    ylim=c(0,70),main="Melhores resultados com a integração das redes socias")
 text(grafico,dado2+5,paste(dado2,"%",sep=""))
 ```
@@ -220,11 +202,9 @@ tudo <- d
 tudo.tabela <- table(tudo$trabalha,tudo$tempogasto)
 rownames(tudo.tabela) <- c("Desempregado","Jornada parcial","Jornada integral","Estagiário","Bolsista Capes")
 colnames(tudo.tabela) <- c("5~10m","10~30m","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
-
 par(mar=c(3, 4, 5, 5) + 0.1)
 barplot(cex.name=0.8,tudo.tabela,col=rainbow(7),ylab = "Quantidade",
         ylim = c(0,21),main = "Tempo gasto em redes socias por dia")
-
 legend(7,21.7, legend=rownames(tudo.tabela),lwd=10,
        title="Situação trabalhista",
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
@@ -242,14 +222,10 @@ tudo <- d
 tudo.teste <- table(tudo$melhoraresul,tudo$distracao)
 rownames(tudo.teste) <- c("Não","Sim","Não sei")
 colnames(tudo.teste) <- c("Não distrai","Distrai")
-
 x <- c(tudo.teste[2,1],tudo.teste[2,2])
-
 s <- round(x/sum(x)*100) #deixando em %
-
-grap <- barplot(cex.name=0.8,s,col=rainbow(7),ylab = "% de Pessoas que acreditam na melhora do desempenho",
+grap <- barplot(cex.name=0.8,s,col=rainbow(7),ylab = "% de pessoas que acreditam na melhora do desempenho",
                 ylim = c(0,100),main = "Distração em sala de aula")
-
 legend(2,120, legend=c("Não distrai","Distrai"),lwd=10,
        title="Distração",
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
@@ -265,19 +241,15 @@ dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
 d <- as.data.frame(dados)
 tudo <- d
 aa <- table(tudo$prejintera,tudo$profchegaal)
-
 rownames(aa) <- c("Não Prejudica","prejudica")
 colnames(aa)<- c("Afasta","Aproxima","Não sei")
-
 b<- c(aa[1,2],aa[2,2])
 b <- round(b/sum(b)*100)
 names(b) <- c("Não prejudica","Prejudica")
-
-aproxima <- barplot(b, ylim = c(0,100),col=rainbow(2),main="Opinião das pessoas que apoiam ")
+aproxima <- barplot(b, ylab = "Porcentagem de questionados que acreditam na melhora", ylim = c(0,100),col=rainbow(2),main="Opinião das pessoas que apoiam ")
 text(aproxima,b+5,paste(b,"%",sep=""))
 legend("topright", legend=c("Não prejudica","Prejudica"),lwd=10,col = rainbow(2)
        , lty=1:2, cex=0.8,xpd = TRUE)
-
 ```
 \newpage
 #Conclusão
