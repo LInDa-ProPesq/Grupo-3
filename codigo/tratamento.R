@@ -149,41 +149,14 @@ legend(7,23, legend=rownames(tudo.tabela),lwd=10,
 ##falta colocar png
 dev.off()
 
-d
 tudo <- d
-names(tudo)
-table(tudo$melhoraresul,tudo$distracao)
 tudo.teste <- table(tudo$melhoraresul,tudo$distracao)
 rownames(tudo.teste) <- c("Não","Sim","Não sei")
-tudo.teste
 colnames(tudo.teste) <- c("Não distrai","Distrai")
-png(filename="gráficos/distraçãoXmelhoresresultados.png", width = 800, height = 600, pointsize = 20)
-
-par(mar=c(3, 4, 5, 5) + 0.1)
-barplot(cex.name=0.8,tudo.teste,col=rainbow(7),ylab = "Quantidade de pessoas",
-        ylim = c(0,60),main = "Distração em sala de aula")
-
-legend(2,80, legend=rownames(tudo.teste),lwd=10,
-       title="traz melhores resultados ",
-       col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
-
-dev.off()
 
 x <- c(tudo.teste[2,1],tudo.teste[2,2])
-x
-#help(pie)
 
-#lbls <- c("Não Distrai","Distrai")
-#lbls <- paste(lbls,s)
-#lbls <- paste(lbls,"%",sep="")
-#pie(x,main="Distração em sala de aula",labels = lbls,col = rainbow(7))
-
-#pie(x,main="Distração em sala de aula",labels = c("Não Distrai","Distrai"),col = rainbow(7))
-
-##grafico de distração por quem acredita em melhores resultados
 s <- round(x/sum(x)*100) #deixando em %
-s
-png(filename="gráficos/distração x melhoresresultados.png", width = 800, height = 600, pointsize = 20)
 
 grap <- barplot(cex.name=0.8,s,col=rainbow(7),ylab = "pessoas que acreditam no melhor resultado",
                 ylim = c(0,100),main = "Distração em sala de aula")
@@ -192,49 +165,24 @@ legend(2.2,120, legend=c("Não distrai","Distrai"),lwd=10,
        title="Distração",
        col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
 text(grap,s+5,paste(s,"%",sep="")) #dado2+3 é o lugar que fica o "n"
-dev.off()
 
 ##grafico melhor forma de aproximar com prejudica interação
 aa <- table(tudo$prejintera,tudo$profchegaal)
 
-aa[2,1]
 rownames(aa) <- c("Não Prejudica","prejudica")
 colnames(aa)<- c("Afasta","Aproxima","Não sei")
-aa
-png(filename="gráficos/melhorformaaproximar X prejudica interação.png", width = 800, height = 600, pointsize = 20)
 
 barplot(aa,col = rainbow(2),
         main="Interpolação de dados:\nAproxima X Prejudica a interação\nEntre os professores e alunos")
 legend("topright", legend=rownames(aa),lwd=10,col = rainbow(2)
        , lty=1:2, cex=0.8,xpd = TRUE)
-dev.off()
 
 #grafico de quem acha que aproxima com prejudica/n prejudica interação
 b<- c(aa[1,2],aa[2,2])
 b <- round(b/sum(b)*100)
 names(b) <- c("Não prejudica","Prejudica")
-png(filename="gráficos/aproxima x prejudica.png", width = 800, height = 600, pointsize = 20)
 
 aproxima <- barplot(b, ylim = c(0,100),col=rainbow(2),main="Opinião das pessoas que apoiam ")
 text(aproxima,b+5,paste(b,"%",sep=""))
 legend("topright", legend=c("Não prejudica","Prejudica"),lwd=10,col = rainbow(2)
        , lty=1:2, cex=0.8,xpd = TRUE)
-dev.off()
-#juntando preencher tempo livre com tempo gasto
-tabela <- table(tudo$preencher,tudo$tempogasto)
-tabela
-rownames(tabela) <- c("Não","Sim")
-colnames(tabela) <- c("5~10m","10~30m","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
-tabela
-tudo$compdetalhe
-tudo$trocainfo
-tudo$usoindev
-tudo$distracao
-tudo$prejintera
-tudo$profal
-tudo$trabalha
-summary(d)
-tab <- table(tudo$trabalha,tudo$preencher)
-tab
-tudo$facebook
-table(tudo$tempogasto,tudo$facebook)

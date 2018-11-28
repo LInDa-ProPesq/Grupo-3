@@ -257,7 +257,7 @@ text(grap,s+5,paste(s,"%",sep="")) #dado2+3 é o lugar que fica o "n"
 ```
 
 \newpage
-##AAAA
+##Interação entre professor e aluno x Convicção de que as mídias sociais são a melhor forma de aproximação entre professor e aluno
 Dentre os que respoderam "sim" à pergunta  \textit{"Você acredita que a mídia social é a melhor forma dos professores se aproximarem de seus alunos?"}, apenas 9% creem que estas mesmas mídias sociais prejudicam a interação entre professor e aluno. Portanto, nota-se uma grande coerência entre os resultados obtidos, diferente do que ocorreu na análise anterior.
 
 ```{r PrejudicaxEhbom, echo=FALSE, fig.align='center'}
