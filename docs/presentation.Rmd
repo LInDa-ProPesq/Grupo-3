@@ -1,0 +1,260 @@
+---
+title: "Trabalho final de Ciência de dados"
+author: "Grupo 3"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+  beamer_presentation: default
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+if (!require(readxl)) install.packages('readxl')
+library(readxl)
+```
+
+
+## Grupo 
+
+- Leonardo Oliveira
+- Kawe Antônio dos Santos Marcelino
+- Pedro Henrique Nunes Barros
+- Rafael Nunes Caseiro
+- Vitor de Souza Cruzeiro
+
+
+## Introdução
+
+ Conforme o passar dos últimos anos, a quantidade de dados aumentou de forma gigantesca. Qualquer dispositivo eletroeletrônico, capaz de ter conexão com a internet, gera ou pode gerar dados. Porém, os dados gerados, por si sós, não têm uma finalidade correta caso não sejam formatados de forma a se tornarem informação, com a qual é possivel identificar problemas ou ter uma visão melhorada da situação que gerou aqueles dados. 
+ 
+   ```{r, echo=FALSE, fig.align='center'}
+   knitr::include_graphics('./Apresentacao-figure/cellphonedata.jpg')
+```
+ 
+## Ciência de dados
+ 
+  Os dados não estruturados alcançam escalas empresariais. Os dados estão em abundância em todos os lugares. Projeta-se que, em 2020, cada pessoa gerará cerca 1.7MB de dados por segundo. Colocando isto numa escala global e em um determinado tempo, essa quantidade de dados mostra-se difícil de ser manejada.
+  Então surgiu a ciência de dados, que é uma área interdisciplinar voltada para o estudo e a análise  de dados estruturados ou não. A ciência de dados visa a extração de conhecimento para tomadas de decisão; compreende tudo relacionado à preparação, limpeza e análise de dados conforme foi visto nas aulas teóricas de ciência de dados na Universidade Estadual Paulista Julio de Mesquita Filho (UNESP) ministrada pelo professor João Pedro Albino. 
+  
+```{r, echo=FALSE,fig.align='center'}
+   knitr::include_graphics('./Apresentacao-figure/ds.jpeg')
+```
+
+## Sobre o trabalho
+
+  Este relatório foi realizado como parte do trabalho final da disciplina de Ciências de Dados, do segundo termo de 2018.
+Ele visa demonstrar um conjunto de técnicas exploratórias da linguagem R, aprendidas durante o curso, assim como a elaboração de grafos e documentos através do software R-Studio, e o próprio relatório, em conjunto com uma apresentação de slides, produzidos pelo software R-Markdown.
+  Ele contempla a pesquisa realizada pelos alunos da disciplina, aplicada ao corpo discente da Universidade Estadual Paulista "Julio de Mesquita Filho" - UNESP - do campus de Bauru - SP,  como parte da pesquisa em progresso de autoria do professor João Pedro Albino, com o intuito de responder a pergunta: <br><br><br>
+"Quais são as influências das mídias sociais sobre discentes da instituição de nível superior UNESP-Bauru-SP?"
+  
+##Análise exploratória de dados
+
+  Utilizando a planilha \textit{tidy} fornecida pelo professor, foram analisados todos os dados das 15 questões apresentadas nos formulários coletados. A análise foi dividida em primeira (análises isoladas das questões) e segunda grau (cruzamentos de dados entre questões para gerar informações mais complexas).
+  
+  ```{r, echo=FALSE,fig.align='center'}
+   knitr::include_graphics('./Apresentacao-figure/data-1 (1).jpg')
+```
+  
+##Análise de primeira ordem
+
+A partir dos dados coletados pela pesquisa foi gerado um conjunto de gráficos exploratórios de primeira ordem. Este conjunto apresenta os resultados de forma simples e direta, servindo como embasamento inicial da análise, facilitando a proposta de perguntas mais interessantes sobre o conjunto de dados.
+Ainda assim, a análise destes gráficos já aponta algumas características interessantes do corpo de pesquisa, permitindo a observação de aspectos prevalentes e possivelmente inesperados. 
+  
+  ```{r, echo=FALSE,fig.align='center'}
+   knitr::include_graphics('./Apresentacao-figure/graficos.jpg')
+```
+
+Os gráficos gerados foram os seguintes:
+
+
+## Faixa etária
+O gráfico a seguir apresenta a distribuição de faixa etária dos entrevistados. Percebe-se que a maioria dos entrevistados tem entre 21 e 25 anos: \par
+
+```{r Faixa_Etaria, echo=FALSE, fig.align='center'}
+library(readxl)
+dados <- read_excel("../dados/umses_alunos_2018.xlsx") 
+dados2 <- read_excel("../dados/dicionario_de_dados.xlsx")
+dados <- as.data.frame(dados) #deixando como data frame
+dado<- table(dados$idade)
+nomes <- c("16 e 20","21 e 25","26 e 30")
+graf <- barplot(dado,names.arg = nomes,ylim=c(0,40),xlab = "Idade em anos",ylab = "Quantidade de questionados",col = rainbow(3),main = "Faixa etária dos questionados")
+text(graf,dado+2,paste(dado,"",sep=""))
+
+```
+
+## Sobre o sexo dos participantes
+Uma vez que a maioria dos respondentes eram do curso de Ciência da Computação ou de Sistemas de Informação da Unesp de Bauru, é normal observar um número maior de homens, como mostra o gráfico abaixo: \par
+
+```{r Sexo, echo=FALSE, fig.align='center'}
+library(readxl)
+library(graphics)
+dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
+i<- 1
+for (opcao in dados$genero) {
+  if (opcao == 1) {
+    dados$genero<- replace(dados$genero, i, "Indefinido")
+  }
+  else if (opcao == 2){
+    dados$genero<- replace(dados$genero, i, "Masculino")
+  }
+  else {
+    dados$genero<- replace(dados$genero, i, "Feminino")
+  }
+  i<-i+1
+}
+genero <- table(dados$genero)
+v <- round(genero/sum(genero)*100)
+gen <- barplot(v,col = rainbow(2),ylim=c(0,70),xlab = "Gênero",
+               ylab = "Porcentagem de pessoas",main = "Gênero dos questionados")
+text(gen, v+4,paste(v,"%",sep=""))
+```
+
+## Principais motivos de uso das redes sociais
+Através da análise deste dado, notou-se uma diversificação no que tange os motivos pelos quais os usuários utilizam as redes sociais. \par
+
+```{r Principais_motivos_de_uso, echo=FALSE, fig.align='center'}
+library(readxl)
+library(graphics)
+#fazendo grafico principais motivos
+dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
+dados <- as.data.frame(dados)
+d<- c(sum(dados$contato),sum(dados$atualizado),sum(dados$preencher),sum(dados$encontrar),sum(dados$compopiniao),sum(dados$compfoto),sum(dados$amigosja),sum(dados$profnetwork),sum(dados$novaamizade),sum(dados$compdetalhe))
+names(d) <- c("Contato","Atualizar","Tempo livre","Conteúdo","Opiniões","Fotos ou vídeos","Amigos","Networking","Pessoas","Compartilhar \nassuntos\nde trabalho")
+par(mar = c(7,4,4,4))
+grafico <- barplot(d,col=rainbow(11),las=2,
+                   ylim = c(0,70),main="Principais motivos de uso",
+                   ylab = "Quantidade de questionados")
+text(grafico,d+6,paste(d,"",sep=""))
+```
+
+## Uso de mídias sociais por professores
+Pelo menos 93% dos entrevistados concorda que as mídias sociais podem ser utilizadas por professores, mesmo que com ressalvas. Uma população muito pequena discorda da ideia e não representa um conjunto significativo para futuras análises. \par
+
+```{r Uso_academico, echo=FALSE, fig.align='center'}
+library(readxl)
+library(graphics)
+dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
+d <- as.data.frame(dados)
+dado <- d$usoacademico  
+dado <- factor(d$usoacademico)
+dado2 <- table(dado)
+names(dado2) <- c("Não","Sim","Com restrições","Não sei")
+par(mar = c(7,4,4,4))
+dado2 <- round(dado2/sum(dado2)*100)
+teste  <- barplot(dado2,cex.names=1.0,col=rainbow(11),
+                  ylab="Porcentagem dos questionados",ylim = c(0,80),
+                  main="Mídia social pode ser usada pelos professores?")
+text(teste, dado2+6,paste(dado2,"%",sep="")) #add o numero em cima
+```
+
+## Mídias sociais como a melhor forma de aproximação entre professor e aluno
+O gráfico apresenta as respostas à pergunta \textit{"Você acredita que a mídia social é a melhor forma dos professores se aproximarem de seus alunos?"}. Notou-se que, apesar de a maioria dos respondentes concordarem com o uso das mídias sociais na educação, ainda há muita dúvida quanto a sua real eficiência, uma vez que poucos responderam "Sim" à pergunta e muitos ficaram indecisos ou discordaram. \par
+
+```{r Melhor_forma_de_aproximacao_aluno-professor, echo=FALSE, fig.align='center'}
+dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
+d <- as.data.frame(dados)
+dado <- d$profchegaal
+dado2 <- table(dado)
+names(dado2) <- c("Não","Sim","Não sei")
+par(mar = c(7,4,4,4))
+dado2 <- round(dado2/sum(dado2)*100)
+grafico <- barplot(dado2,cex.names = 1.5, col=rainbow(7),
+                   las=2,ylab="Porcentagem dos questionados",
+                   ylim=c(0,50),main="Melhor forma dos professores se aproximarem?")
+text(grafico,dado2+5,paste(dado2,"%",sep=""))
+```
+
+## Mídias sociais com potencial de melhora no desempenho dos alunos
+Ainda seguindo a tendência da questão anterior (que mostra que as mídias sociais ainda são um pouco "obscuras" para uso na educação), o índice de abstenção ficou próximo de um quarto dos entrevistados, mas os que concordam com a afirmação de que estes mecanismos podem melhorar o desempenho dos alunos permaneceu alto. \par
+
+```{r Potencial_de_melhora, echo=FALSE, fig.align='center'}
+dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
+d <- as.data.frame(dados)
+dado <- d$melhoraresul
+dado2 <- table(dado)
+names(dado2) <- c("Não","Sim","Não sei")
+par(mar = c(7,4,4,4))
+dado2 <- round(dado2/sum(dado2)*100)
+grafico <- barplot(dado2,cex.names = 1.5, col=heat.colors(3),
+                   las=2,ylab="Porcentagems dos questionados",
+                   ylim=c(0,70),main="Melhores resultados com a integração das redes socias")
+text(grafico,dado2+5,paste(dado2,"%",sep=""))
+```
+
+## Análise de segunda ordem
+
+  <p> Enquanto que a projeção individual de resultados gera gráficos mais simples e diretos, ideais para uma primeira análise dos resultados, uma exploração mais profunda exige a elaboração de gráficos de segunda ordem, isto é, a projeção cruzada entre variáveis.</p>
+  <p> Esse tipo de análise expõe correlações entre dados que dificilmente seriam percebidas de outra forma. São através destes gráficos que os aspectos mais interessantes e surpreendentes da pesquisa realizada expõem-se.</p>
+  <p>Portanto, foram selecionadas diversas variáveis do corpo de dados, e, a partir destas, foi projetado um conjunto de gráficos de segunda ordem.</p>
+  <p> Ao analisar estes gráficos pode-se notar que alguns não parecem transmitir nenhuma correlação relevante, com os dados cruzados se relacionando de forma dispersa. Estes gráficos não foram inclusos neste relatório.</p>
+  <p> Por outro lado, as demais projeções puderam ser destacadas em dois grupos: aquelas que indicam correlação entre dados de forma a fortalecer seus resultados e outras que se relacionam de forma contraditória aos próprios resultados. Este segundo grupo em particular despertou grande interesse, pois pode ser usado para apontar aspectos da pesquisa que podem não ter sido bem interpretados pelos entrevistados, e que, portanto, possam, talvez, ser melhor elaborados. Seguem os resultados obtidos: </p>
+
+## Tempo gasto em redes sociais x Situação trabalhista
+Cruzando estes dois dados, percebeu-se que, em geral, quem trabalha menos horas por dia costuma utilizar mais as redes sociais, fato que se acentua ao constatar que os desempregados representam a maior parte dos que utilizam as redes sociais por mais de 5 horas diárias.
+
+```{r TempoxSituacao, echo=FALSE, fig.align='center'}
+dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
+d <- as.data.frame(dados)
+tudo <- d
+tudo.tab <- table(tudo$genero,tudo$bulling)
+tudo <- d
+tudo.tabela <- table(tudo$trabalha,tudo$tempogasto)
+rownames(tudo.tabela) <- c("Desempregado","Jornada parcial","Jornada integral","Estagiário","Bolsista Capes")
+colnames(tudo.tabela) <- c("5~10m","10~30m","30~1h","1~2h","2~3h","3~4h","mais de 5 h")
+par(mar=c(3, 4, 5, 5) + 0.1)
+barplot(cex.name=0.8,tudo.tabela,col=rainbow(7),ylab = "Quantidade",
+        ylim = c(0,21),main = "Tempo gasto em redes socias por dia")
+legend(7,21.7, legend=rownames(tudo.tabela),lwd=10,
+       title="Situação trabalhista",
+       col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
+       
+```
+
+## Convicção na melhora do desempenho x Redes sociais como fonte de distração
+Contraditoriamente, a maioria das pessoas que acreditam na melhora do desempenho dos alunos através do uso de redes sociais também respondeu que as redes sociais podem representar mais uma fonte de distração na sala de aula, como segue:
+
+```{r FexDistracao, echo=FALSE, fig.align='center'}
+dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
+d <- as.data.frame(dados)
+tudo <- d
+tudo.teste <- table(tudo$melhoraresul,tudo$distracao)
+rownames(tudo.teste) <- c("Não","Sim","Não sei")
+colnames(tudo.teste) <- c("Não distrai","Distrai")
+x <- c(tudo.teste[2,1],tudo.teste[2,2])
+s <- round(x/sum(x)*100) #deixando em %
+grap <- barplot(cex.name=0.8,s,col=rainbow(7),ylab = "% de pessoas que acreditam na melhora do desempenho",
+                ylim = c(0,100),main = "Distração em sala de aula")
+legend(2,120, legend=c("Não distrai","Distrai"),lwd=10,
+       title="Distração",
+       col=rainbow(7), lty=1:2, cex=0.8,xpd = TRUE)
+text(grap,s+5,paste(s,"%",sep="")) #dado2+3 é o lugar que fica o "n"
+```
+
+## Interação entre professor e aluno x Convicção de que as mídias sociais são a melhor forma de aproximação entre professor e aluno
+Dentre os que respoderam "sim" à pergunta  \textit{"Você acredita que a mídia social é a melhor forma dos professores se aproximarem de seus alunos?"}, apenas 9% creem que estas mesmas mídias sociais prejudicam a interação entre professor e aluno. Portanto, nota-se uma grande coerência entre os resultados obtidos, diferente do que ocorreu na análise anterior.
+
+```{r PrejudicaxEhbom, echo=FALSE, fig.align='center'}
+dados <- read_excel("../dados/umses_graduacao_2018_vtidy.xlsx")
+d <- as.data.frame(dados)
+tudo <- d
+aa <- table(tudo$prejintera,tudo$profchegaal)
+rownames(aa) <- c("Não Prejudica","prejudica")
+colnames(aa)<- c("Afasta","Aproxima","Não sei")
+b<- c(aa[1,2],aa[2,2])
+b <- round(b/sum(b)*100)
+names(b) <- c("Não prejudica","Prejudica")
+aproxima <- barplot(b, ylab = "Porcentagem de questionados que acreditam na melhora", ylim = c(0,100),col=rainbow(2),main="Opinião das pessoas que apoiam ")
+text(aproxima,b+5,paste(b,"%",sep=""))
+legend("topright", legend=c("Não prejudica","Prejudica"),lwd=10,col = rainbow(2)
+       , lty=1:2, cex=0.8,xpd = TRUE)
+```
+
+## Conclusão
+
+  <p> A partir das projeções de primeira ordem realizadas sobre os resultados obtidos na pesquisa, podemos traçar um perfil médio do corpo discente da Unesp de Bauru. </p>
+  <p> Pela análise das projeções de segunda ordem, pudemos observar que algumas perguntas tiveram resultados contraditórios, enquanto outras tiveram resultados bastante coerentes entre si. </p>
+  <p> É importante notar que o corpo total de discentes participante da pesquisa é composto por apenas 61 alunos, escolhidos de forma altamente tendenciosa (todos são relacionados com alunos dos cursos de Bacharelado em Ciências da Computação e Bacharelado em Sistemas de Informação). Portanto, os resultados obtidos não podem ser interpretados como padrões reais, mas sim como possíveis tendências esperadas de uma pesquisa sobre um corpo mais significante de alunos deste câmpus. </p>
+<p> Por fim, podemos interpretar os resultados deste trabalho e trazer a seguinte resposta à pergunta proposta, "Quais são as influências das mídias sociais sobre discentes da instituição de nível superior UNESP-Bauru-SP?". </p> 
+
+<p> As mídias sociais têm um grande impacto sobre os alunos desta instituição de ensino. Na questão do ensino, uma grande parte dos alunos acredita que ele pode ser amplificado através do uso de mídias sociais, porém ainda há falta de consenso nos reais impactos que seu uso pode realmente trazer, como foi mostrado nas análises de segunda ordem. No que diz respeito ao uso cotidiano destas mídias, um insight valoroso é que, em geral, quanto menos as pessoas trabalham, mais utilizam redes sociais, o que pode acabar prejudicando seu desempenho na faculdade. </p>
